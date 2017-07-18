@@ -1,0 +1,66 @@
+swagger: "2.0"
+info:
+  title: "Описание HTTP-API"
+  version: 1.0.0
+host: "cp.smsp.by"
+basePath: "/?r=api"
+tags:
+- name: "user"
+  description: "Данные текущего аккаунта"
+- name: "msg"
+  description: "Отправка sms, получение статусов и отчетов по sms"
+- name: "bulk"
+  description: "Формирование пакетных рассылок"
+- name: "template"
+  description: "Работа с шаблонами"
+- name: "group"
+  description: "Работа группами для рассылок"
+- name: "contact"
+  description: "Работа с контактами"
+- name: "stop"
+  description: "Работа с стоп-листом"
+- name: "inbox"
+  description: "Получение входящих смс"
+- name: "paycard"
+  description: "Активация карт оплаты"
+schemes:
+- "http"
+- "https"
+paths:
+  /user_balance:
+    get:
+      tags:
+      - "user"
+      summary: "Получение текущего баланса"
+      description: ""
+      responses:
+        200:
+          description: "Ok"
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: "success - функция выполнена успешно, error - функция выполнена с ошибкой"
+              balance:
+                type: string
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "apikey"
+    in: "query"
+    description: "Api-ключ можно задать в разделе настроек личного кабинета \"Настройки API\""
+  api_user:
+    type: "apiKey"
+    name: "user"
+    in: "query"
+    description: "Логином для основного аккаунта, обычно, является E-mail, который был указан при регистрации"
+  api_devkey:
+    type: "apiKey"
+    name: "devkey"
+    in: "query"
+    description: "Опциональный параметр предназначен для разработчиков/распространителей стороннего ПО. В нем нужно указать персональный ключ разработчика, чтобы на счет разработчика/распространителя начислялись проценты за использование системы через ПО разработчика. Параметр нужно указывать для всех функций."
+security:
+  - api_key: []
+    api_user: []
+    api_devkey: []
